@@ -68,9 +68,8 @@ module Rack
 
     def update_content_length
       length = 0
-      @body.each do |s|   # we can't use inject because @body may not respond to it
-        length += Rack::Utils.bytesize(s)   # we use Rack::Utils.bytesize to avoid
-                                            # incompatibilities between Ruby 1.8 and 1.9
+      @body.each do |s|
+        length += s.bytesize
       end
       @headers['Content-Length'] = length.to_s
     end
